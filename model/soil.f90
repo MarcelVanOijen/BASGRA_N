@@ -171,8 +171,13 @@ Subroutine CNsoil(ROOTD,RWA,WFPS,WAL,GCR,CLITT,CSOMF,NLITT,NSOMF,NSOMS,NMIN,CSOM
   dNSOMS      = (NSOMS*dCSOMS) / CSOMS
   ! N mineralisation, fixation, leaching, emission
   Nmineralisation = NLITTnmin + NSOMFnmin + dNSOMS
-  Nfixation       = gCR * KNFIX 
-  Nleaching       = (NMIN*RNLEACH*DRAIN) / WAL
+  Nfixation       = gCR * KNFIX
+  ! Nleaching       = (NMIN*RNLEACH*DRAIN) / WAL
+  if ((WAL > 0.) .and. (NMIN > 0.)) then
+    Nleaching       = (NMIN*RNLEACH*DRAIN) / WAL
+  else
+    Nleaching       = 0.
+  end if
   Nemission       =  NMIN * KNEMIT * RWA
   fN2O            = 1. / (1. + exp(-RFN2O*(WFPS-WFPS50N2O)))
   NemissionN2O    = Nemission *     fN2O
