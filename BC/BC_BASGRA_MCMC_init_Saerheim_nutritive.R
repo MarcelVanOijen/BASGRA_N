@@ -10,7 +10,7 @@
 
 ## LIKELIHOOD FUNCTION ##
    source('BC/fLogL_Sivia.R')
-   source('BC/fLogL_mm_Beta.R')
+   source('BC/fLogL_mm_Beta_aplusb3.R')
    
 ## SETTINGS FOR THE DIFFERENT CALIBRATION SITES (at least one site)
    sitesettings_filenames <- c("initialisation/initialise_BASGRA_Saerheim_2000_09_Grindstad.R",
@@ -38,10 +38,8 @@
    cv_F_PROTEIN  <- rep( 0.3 , nSites )
    cv_F_DIGEST   <- rep( 0.15, nSites )
    cv_F_WALL     <- rep( 0.15, nSites )
-   cv_YIELD      <- rep( 0.05, nSites )
    sd_LT50       <- rep( 5   , nSites )
    cv_mm_default <- rep( 0.2 , nSites )
-#    cv_mm_FRTILG  <- rep( 0.2 , nSites )
    cv_mm_FRTILG  <- rep( 0.3 , nSites )
    
 ## PROPOSAL TUNING FACTOR  
