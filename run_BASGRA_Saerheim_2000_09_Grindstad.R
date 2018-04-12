@@ -14,7 +14,7 @@ plot_output( vars=outputNames[73:85     ] )
 plot_output( vars=outputNames[c(9,96:97,57,61,66)] )
 
 # SA("NFERTMULT",
-#    file_init="initialisation/initialise_BASGRA_Saerheim_2000_09_Grindstad.R")
+#   file_init="initialisation/initialise_BASGRA_Saerheim_2000_09_Grindstad.R")
 
 # cbind(outputNames[73:85],output[ 1,73:85])
 # cbind(outputNames[73:85],output[85,73:85])

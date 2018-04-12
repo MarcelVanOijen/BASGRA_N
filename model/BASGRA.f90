@@ -175,7 +175,7 @@ do day = 1, NDAYS
   call Growth         (LAI,NSH,NMIN,CLV,CRES,CST,PARINT,TILG1,TILG2,TILV,TRANRF, &
                                                        GLV,GRES,GRT,GST,RESMOB,NSHmob)
   call PlantRespiration(FO2,RESPHARD)
-  call Senescence     (CLV,CRT,CSTUB,doy,LAI,LT50,PERMgas,TANAER,TILV,Tsurf, &
+  call Senescence     (CLV,CRT,CSTUB,LAI,LT50,PERMgas,TANAER,TILV,Tsurf, &
                                                        DeHardRate,DLAI,DLV,DRT,DSTUB,dTANAER,DTILV,HardRate)
   call Foliage2       (DAYL,GLV,LAI,TILV,TILG1,TRANRF,Tsurf,VERN, &
                                                        GLAI,GTILV,TILVG1,TILG1G2)

@@ -207,8 +207,8 @@ Subroutine PlantRespiration(FO2,RESPHARD)
   RplantAer = fAer * ( RESPGRT + RESPGSH + RESPHARD )
 end Subroutine PlantRespiration
 
-Subroutine Senescence(CLV,CRT,CSTUB,doy,LAI,LT50,PERMgas,TANAER,TILV,Tsurf, &
-                                 DeHardRate,DLAI,DLV,DRT,DSTUB,dTANAER,DTILV,HardRate)
+Subroutine Senescence(CLV,CRT,CSTUB,LAI,LT50,PERMgas,TANAER,TILV,Tsurf, &
+                      DeHardRate,DLAI,DLV,DRT,DSTUB,dTANAER,DTILV,HardRate)
   integer :: doy
   real :: CLV,CRT,CSTUB,DAYL,LAI,LT50,PERMgas,TANAER,TILV,Tsurf
   real :: DeHardRate,DLAI,DLV,DRT,DSTUB,dTANAER,DTILV,HardRate
