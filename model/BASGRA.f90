@@ -11,10 +11,7 @@ subroutine BASGRA( PARAMS, MATRIX_WEATHER, &
 ! 2014-04-03: Lower limit of temperature-driven leaf senescence no longer zero
 ! 2015-03-26: Introducing N, following example of BASFOR for the soil part.
 !             Plant N is restricted to LV, ST, RT, not present in STUB and RES.
-!             Effect of N on growth is only via uptake limitation, i.e. when
-!             NMIN becomes too low to sustain GLV, GST and GRT at required
-!             N-concentrations.
-! 2015-09-24: More N-processes added and documentation written (separate file)
+! 2015-09-24: More N-processes added
 ! 2016-12-09: Digestibility and fibre content added
 !-------------------------------------------------------------------------------
 
@@ -114,7 +111,7 @@ ROOTD      = ROOTDM
 TILG1      = TILTOTI *       FRTILGI *    FRTILGG1I
 TILG2      = TILTOTI *       FRTILGI * (1-FRTILGG1I)
 TILV       = TILTOTI * (1. - FRTILGI)
-VERN       = 0
+VERN       = 1
 YIELD      = YIELDI
 YIELD_LAST = YIELDI
 YIELD_TOT  = YIELDI
@@ -184,8 +181,8 @@ do day = 1, NDAYS
   call N_fert         (year,doy,DAYS_FERT,NFERTV,      Nfert)
   call N_dep          (year,doy,DAYS_NDEP,NDEPV,       Ndep)
   call CNsoil         (ROOTD,RWA,WFPS,WAL,GRT,CLITT,CSOMF,NLITT,NSOMF,NSOMS,NMIN,CSOMS) 
-  call Nplant         (NSHmob,CLV,CRT,CST,DLAI,DLV,DRT,GLAI,GLV,GRT,GST,HARVLA,HARVLV,HARVST, &
-                                                       LAI,NRT,NSH, &
+  call Nplant         (NSHmob,CLV,CRT,CST,DLAI,DLV,DRT,GLAI,GLV,GRT,GST, &
+                                                       HARVLA,HARVLV,HARVST,LAI,NRT,NSH, &
                                                        DNRT,DNSH,GNRT,GNSH,HARVNSH, &
 													   NCDSH,NCGSH,NCHARVSH,NSHmobsoil,Nupt)
 
@@ -232,7 +229,7 @@ do day = 1, NDAYS
   y(day,18) = ROOTD
   y(day,19) = Sdepth
   y(day,20) = TANAER
-  y(day,21) = TILG1 + TILG2
+  y(day,21) = TILG1 + TILG2          ! "TILG"
   y(day,22) = TILV
   y(day,23) = WAL
   y(day,24) = WAPL
@@ -337,10 +334,12 @@ do day = 1, NDAYS
   ROOTD   = ROOTD   + RROOTD
   TILG1   = TILG1           + TILVG1 - TILG1G2
   TILG2   = TILG2                    + TILG1G2 - HARVTILG2
-  TILV    = TILV    + GTILV - TILVG1           - DTILV   
-  if (DAVTMP<TVERN) VERN = 1
-  YIELD     = (HARVLV + HARVST*HAGERE) / 0.45 + HARVRE/0.40
-  if (YIELD>0) YIELD_LAST = YIELD
+  TILV    = TILV    + GTILV - TILVG1           - DTILV
+  if((LAT>0).AND.(doy==305)) VERN = 0  
+  if((LAT<0).AND.(doy==122)) VERN = 0  
+  if(DAVTMP<TVERN)           VERN = 1
+  YIELD     = (HARVLV + HARVST*HAGERE)/0.45 + HARVRE/0.40
+  if(YIELD>0) YIELD_LAST = YIELD
   YIELD_TOT = YIELD_TOT + YIELD
   
   NRT       = NRT   + GNRT - DNRT
